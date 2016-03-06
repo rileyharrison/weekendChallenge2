@@ -1,0 +1,21 @@
+.kappan {
+    color: red;
+
+    background-color: #333333;
+    margin: 10px 10px 10px 10px;
+
+
+}
+.spirit_pic{
+    width: auto;
+    height: 300px;
+}
+.donut{
+    border-radius: 50%;
+    background-color: #cccccc;
+    width: 20px; height: 20px;
+    display: inline-block;
+}
+.donutOn{
+    background-color: green;
+}
