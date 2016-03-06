@@ -6,6 +6,14 @@
 
 
 }
+
+.splash{
+
+
+}
+h2 {
+    text-align: center;
+}
 .spirit_pic{
     width: auto;
     height: 300px;
@@ -18,4 +26,7 @@
 }
 .donutOn{
     background-color: green;
+}
+#shoutout {
+    font-style: italic;
 }

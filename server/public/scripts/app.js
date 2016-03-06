@@ -44,6 +44,9 @@
 // between people every 10 seconds.
 
 $(document).ready(function(){
+
+    //  on success of getting the data object from the server,
+    // call initialize to start things up, passing it the retrieved data
     $.ajax({
       type: "GET",
       url: "/data",
@@ -53,47 +56,53 @@ $(document).ready(function(){
     });
 });
 
+// declare variables arrKappa and personIndex global to work with in a bunch of
+// functions, "con"- variables to act as constants until I learn to declare actual
+// constants
 var arrKappa;
 var timer;
 var conUpdateInterval = 10000;
 var personIndex = 0;
 var conIndexCap;
+var conFadeTime = 500;
 
 function initialize(data){
 
     // populate the array of kappans
     // set / reset the timer
-    // draw the person
-    // draw the Index donuts
+    // draw the Index donuts static
+    // update the index
+
+    // draw the person static
+    // update the person elements that will change
     // setup event listeners
+
     popArray(data);
     resetTime();
     drawIndex();
     updateIndex();
     drawPerson();
     updatePerson();
-
     setListeners();
 }
 
 function update(){
-    console.log("in function update");
-    console.log("person index = ", personIndex);
+    // console.log("in function update");
+    // console.log("person index = ", personIndex);
 
-    console.log("check index against bounds");
+    // console.log("check index against bounds");
+
+    // check if person index is within bounds, rollover either way
     if (personIndex<0){
         personIndex=conIndexCap;
     }
     if (personIndex>conIndexCap){
         personIndex=0;
     }
-    console.log("after bounds check person index = ", personIndex);
-
-    // console.log("some part of person ", arrKappa[personIndex].name);
-
+    // console.log("after bounds check person index = ", personIndex);
     //reset timer if needed
     resetTime();
-    console.log("timer", timer);
+    // console.log("timer", timer);
     //repaint person
     updatePerson();
     //repaint index dots
@@ -101,14 +110,26 @@ function update(){
 }
 function updateIndex(){
 
-    $('.donut').removeClass('donutOn');
-    $('.donut'+personIndex).toggleClass('donutOn');
+    //
+    // // adding display name for click on donuts
+    // var rowKappan = arrKappa[personIndex];
+    // $("#donutName").text(rowKappan.name);
+
+
+
+        $('.donut').removeClass('donutOn');
+        $('.donut'+personIndex).toggleClass('donutOn');
+
+        //$('.donut'+personIndex).fadeIn(1000);
+    //});
 }
 function drawIndex(){
 
-        $('.container').append('<div class = "index"></div>');
+    //draw the index once at start, to update only changes dynamically later
 
+        $('.container').append('<div class = "index"></div>');
          var $el = $('.container').children().last();
+
          for (var i=0; i<conIndexCap+1; i++){
              $el.append('<div class = "donut donut' + i + '"></div>');
          }
@@ -116,20 +137,23 @@ function drawIndex(){
 
 function updatePerson(){
 
+    // get the object for a specific person into a local array from the global array
     var rowKappan = arrKappa[personIndex];
 
-    $('.person').fadeOut(1000, function() {
+    //callback function on fadeout and fadein
+    $('.person').fadeOut(conFadeTime, function() {
 
-    // $('.person').hide().fadeIn(1000);
-
-    $("#name").text(rowKappan.name);
-    $("#location").text(rowKappan.location);
-    $("#spirit_url").attr("src",'/views/images/' + rowKappan.spirit_url);
-    $("#spirit_animal").text(rowKappan.spirit_animal);
-    $("#shoutout").text(rowKappan.shoutout);
+        // change the sources for existing elements
 
 
-    $('.person').fadeIn(1000);
+        $("#name").text(rowKappan.name);
+        $("#location").text(rowKappan.location);
+        $("#spirit_url").attr("src",'/views/images/' + rowKappan.spirit_url);
+        $("#spirit_animal").text(rowKappan.spirit_animal);
+        $("#shoutout").text(rowKappan.shoutout);
+
+
+        $('.person').fadeIn(conFadeTime);
     });
 
 
@@ -138,61 +162,90 @@ function updatePerson(){
 
 function drawPerson(){
 
+    // dynamically draw the perseon display elements to the DOM. These will be updated on
+    // person change, but all these elements will persist.
+
     $('.container').append('<div class = "person"></div>');
 
      var $el = $('.container').children().last();
 
      $el.append('<button class = "prev">Previous</button>');
      $el.append('<button class = "next">Next</button>');
-
-
      $el.append('<p>Name: <span id = "name"></span></p>');
-     $el.append('<img class = "spirit_pic" alt = "spirit animal" id="spirit_url" src = "something"></img>')
-
-
+     $el.append('<img class = "spirit_pic" alt = "spirit animal" id="spirit_url" src = ""></img>')
      $el.append('<p>Hometown: <span id = "location"><span></p>');
      $el.append('<p>Spirit Animal: <span id = "spirit_animal"></span></p>');
      $el.append('<p>Shoutout: <span id = "shoutout"></span></p>');
 
-
-     //
-    //  $el.append('<p id = "location"></p>');
-    //  $el.append('<p id = "spirit_animal"></p>');
-    //  $el.append('<p id = "shoutout"></p>');
 }
 
 function setListeners(){
-    // $('.fruit-bin').on('click', '.sell', sellFunction);
+    // set listeners for prev and next buttons
 
     $('.container').on('click', '.prev', prevPerson);
     $('.container').on('click', '.next', nextPerson);
+
+    // experiment with adding click to donuts
+    $('.container').on('click', '.donut', donutPerson);
+
+
+}
+
+function donutPerson(){
+
+    // on click of circle in index set the index to that person and update
+
+
+    var newIndex = $(this).attr("class");
+
+    newIndex = newIndex.replace("donut donut","");
+    newIndex = parseInt(newIndex);
+    personIndex = newIndex;
+
+    // console.log("new donut index = ", newIndex)
+
+    // once we have a number from the donut set the person index to it
+    // then update
+    update();
 }
 
 function prevPerson(){
+
+    // move index to the previous person
     personIndex--;
-    console.log("index = " + personIndex);
+    // console.log("index = " + personIndex);
+    // person changed update all displays
     update();
 }
 
 function nextPerson(){
+
+    // move index to the next person
     personIndex++;
-    console.log("index = " + personIndex);
+    // console.log("index = " + personIndex);
+    // person changed update all displays
+
     update();
 }
 
 function popArray(data){
+    // stick the retrieved array, Kappa, from the data object, into the globally
+    // declared arrKappa array
     arrKappa = data.kappa
     conIndexCap = arrKappa.length-1;
 }
 
 function resetTime(){
+    // nuke the current timer and reset
     window.clearInterval(timer);
     timer = window.setInterval(timerTrigger, conUpdateInterval);
-    console.log("reset time");
+    // console.log("reset time");
 }
 
 function timerTrigger(){
-    console.log("the clock is ticking", timer);
+
+    // timer elapsed without a click, advance the index and update all
+    // console.log("the clock is ticking", timer);
     personIndex++;
     update();
 }
