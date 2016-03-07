@@ -22,9 +22,17 @@
 
 }
 .person{
-    width: 90%;
+    display: inline-block;
+    color: white;
+    font-size: 16px;
+    width: 600px;
+    height: 400px;
     margin-left: auto;
     margin-right: auto;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-color: #666666;
 }
 
 .splash{

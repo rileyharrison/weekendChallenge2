@@ -146,7 +146,13 @@ function updatePerson(){
         // change the sources for existing elements
 
 
+        // test change div background images
 
+        $('.person').css("background-image", "url(/views/images/" + rowKappan.spirit_url);
+
+
+
+        //end test
         $("#name").text(rowKappan.name);
         $("#location").text(rowKappan.location);
 
@@ -179,7 +185,7 @@ function drawPerson(){
      $el.append('<p>Name: <span id = "name"></span></p>');
 
 
-     $el.append('<img class = "spirit_pic" alt = "spirit animal" id="spirit_url" src = ""></img>')
+     //$el.append('<img class = "spirit_pic" alt = "spirit animal" id="spirit_url" src = ""></img>')
 
      $el.append('<p>Hometown: <span id = "location"><span></p>');
      $el.append('<p>Spirit Animal: <span id = "spirit_animal"></span></p>');
