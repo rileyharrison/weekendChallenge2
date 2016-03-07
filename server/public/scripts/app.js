@@ -169,8 +169,8 @@ function drawPerson(){
 
      var $el = $('.container').children().last();
 
-     $el.append('<button class = "prev">Previous</button>');
-     $el.append('<button class = "next">Next</button>');
+     $el.append('<button class = "prev"><</button>');
+     $el.append('<button class = "next">></button>');
      $el.append('<p>Name: <span id = "name"></span></p>');
      $el.append('<img class = "spirit_pic" alt = "spirit animal" id="spirit_url" src = ""></img>')
      $el.append('<p>Hometown: <span id = "location"><span></p>');

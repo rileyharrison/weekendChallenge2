@@ -6,6 +6,26 @@
 
 
 }
+.container{
+    text-align: center;
+}
+.prev{
+    height: 400px;
+    width: 50px;
+    float: left;
+
+}
+.next{
+    height: 400px;
+    width: 50px;
+    float: right;
+
+}
+.person{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .splash{
 
