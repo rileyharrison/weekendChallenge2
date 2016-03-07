@@ -146,9 +146,14 @@ function updatePerson(){
         // change the sources for existing elements
 
 
+
         $("#name").text(rowKappan.name);
         $("#location").text(rowKappan.location);
+
+
         $("#spirit_url").attr("src",'/views/images/' + rowKappan.spirit_url);
+
+
         $("#spirit_animal").text(rowKappan.spirit_animal);
         $("#shoutout").text(rowKappan.shoutout);
 
@@ -169,10 +174,13 @@ function drawPerson(){
 
      var $el = $('.container').children().last();
 
-     $el.append('<button class = "prev"><</button>');
-     $el.append('<button class = "next">></button>');
+    //  $el.append('<button class = "prev"><</button>');
+    //  $el.append('<button class = "next">></button>');
      $el.append('<p>Name: <span id = "name"></span></p>');
+
+
      $el.append('<img class = "spirit_pic" alt = "spirit animal" id="spirit_url" src = ""></img>')
+
      $el.append('<p>Hometown: <span id = "location"><span></p>');
      $el.append('<p>Spirit Animal: <span id = "spirit_animal"></span></p>');
      $el.append('<p>Shoutout: <span id = "shoutout"></span></p>');
@@ -182,8 +190,8 @@ function drawPerson(){
 function setListeners(){
     // set listeners for prev and next buttons
 
-    $('.container').on('click', '.prev', prevPerson);
-    $('.container').on('click', '.next', nextPerson);
+    $('.prev').on('click', prevPerson);
+    $('.next').on('click', nextPerson);
 
     // experiment with adding click to donuts
     $('.container').on('click', '.donut', donutPerson);
